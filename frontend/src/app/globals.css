@@ -1,0 +1,85 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --font-display: 'Playfair Display', serif;
+  --font-body: 'DM Sans', sans-serif;
+  --font-mono: 'JetBrains Mono', monospace;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+/* Scanline overlay */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background: repeating-linear-gradient(
+    0deg,
+    transparent,
+    transparent 2px,
+    rgba(255, 255, 255, 0.012) 2px,
+    rgba(255, 255, 255, 0.012) 4px
+  );
+  pointer-events: none;
+  z-index: 9999;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: #1A1A16; }
+::-webkit-scrollbar-thumb { background: #3D3D35; border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: #6B6B60; }
+
+/* Score ring animation */
+.score-ring-path {
+  stroke-dasharray: 440;
+  stroke-dashoffset: 440;
+  animation: scoreFill 1.4s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+  animation-delay: 0.5s;
+}
+
+@keyframes scoreFill {
+  to { stroke-dashoffset: var(--target-offset, 0); }
+}
+
+/* Glassmorphism card */
+.glass {
+  background: rgba(255, 255, 255, 0.04);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+/* Glow effects */
+.glow-jade {
+  box-shadow: 0 0 30px rgba(0, 179, 125, 0.15), 0 0 60px rgba(0, 179, 125, 0.05);
+}
+
+.glow-amber {
+  box-shadow: 0 0 30px rgba(245, 166, 35, 0.15), 0 0 60px rgba(245, 166, 35, 0.05);
+}
+
+/* Loader dots */
+.loader-dot:nth-child(1) { animation-delay: 0s; }
+.loader-dot:nth-child(2) { animation-delay: 0.2s; }
+.loader-dot:nth-child(3) { animation-delay: 0.4s; }
+
+/* Stagger animations */
+.animate-stagger > * {
+  opacity: 0;
+  animation: fadeUp 0.5s ease-out forwards;
+}
+.animate-stagger > *:nth-child(1) { animation-delay: 0.1s; }
+.animate-stagger > *:nth-child(2) { animation-delay: 0.2s; }
+.animate-stagger > *:nth-child(3) { animation-delay: 0.3s; }
+.animate-stagger > *:nth-child(4) { animation-delay: 0.4s; }
+.animate-stagger > *:nth-child(5) { animation-delay: 0.5s; }
+.animate-stagger > *:nth-child(6) { animation-delay: 0.6s; }
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(16px); }
+  to { opacity: 1; transform: translateY(0); }
+}
